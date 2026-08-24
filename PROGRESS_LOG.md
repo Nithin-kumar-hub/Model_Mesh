@@ -10,7 +10,7 @@
 - **Phase:** 1 — Core Project (TEXT + CODE only). Phase 2 = onsite multimodal; do NOT build it now.
 - **Timezone:** Asia/Calcutta (IST). All timestamps below are IST.
 - **Started:** 2026-08-24 23:03 IST
-- **Last updated:** 2026-08-24 23:17 IST
+- **Last updated:** 2026-08-24 23:34 IST
 
 ---
 
@@ -115,7 +115,7 @@ Legend: ☐ TODO · ◐ IN PROGRESS · ✅ DONE (with passing tests) · ⚠ BLOC
 | # | Milestone | Status | Notes |
 |---|-----------|--------|-------|
 | 1  | M1 — Repo foundation & tooling | ✅ | backend scaffold + stdlib config + README + git; 6 core tests green, 2 API tests skip (no fastapi in sandbox) |
-| 2  | M2 — Domain models & error taxonomy | ☐ | typed models + enums + canonical errors |
+| 2  | M2 — Domain models & error taxonomy | ✅ | stdlib dataclasses (Task/Classification/WorkloadProfile/ModelSpec/Provider/ApiKey/Route/RoutePlan/Usage/Attempt/ExecutionResult) + enums + canonical ErrorCode taxonomy + JSON serializer; 34 tests green (2 API skip). Keys store NO raw secret. |
 | 3  | M3 — Task classifier + tests | ☐ | deterministic, replaceable |
 | 4  | M4 — Workload profiler + tests | ☐ | provider-independent, best/expected/worst/context/confidence |
 | 5  | M5 — Provider registry + tests | ☐ | data-driven; mock + Groq/OpenRouter entries |
@@ -136,9 +136,10 @@ Legend: ☐ TODO · ◐ IN PROGRESS · ✅ DONE (with passing tests) · ⚠ BLOC
 
 ## Current checkpoint
 
-- **Last GREEN checkpoint:** M1 done — `cd backend && python3 -m unittest discover -s tests -p 'test_*.py' -t .` → 6 pass, 2 skipped.
-- **Next action:** Start **M2 — Domain models & error taxonomy** in `backend/app/domain/` (stdlib dataclasses +
-  enums + canonical error taxonomy), with stdlib unit tests. Then M3 classifier.
+- **Last GREEN checkpoint:** M2 done — `cd backend && python3 -m unittest discover -s tests -p 'test_*.py' -t .` → 32 pass, 2 skipped (34 total).
+- **Next action:** Start **M3 — Task classifier** in `backend/app/classifier/` — a `ClassifierProtocol`
+  (abc) + deterministic rule-based classifier mapping input → (Modality, TaskType, Complexity,
+  confidence, signals). Must be replaceable (Phase 2 on-device/cloud) and fully unit-tested.
 
 ---
 
@@ -152,3 +153,5 @@ Format: `YYYY-MM-DD HH:MM IST — [milestone] action / result`
 - 2026-08-24 23:12 IST — [M1] Discovered sandbox cannot install packages (PyPI/npm proxy-blocked; apt needs root). See "Environment constraints". Revised strategy: pure-stdlib core, framework-only edges.
 - 2026-08-24 23:14 IST — [M1] Scaffolded backend/ (app packages + tests), .gitignore, .env.example, requirements.txt/-dev, pyproject.toml. Rewrote config.py to stdlib-only Settings; main.py keeps FastAPI isolated.
 - 2026-08-24 23:17 IST — [M1] Core suite GREEN via unittest: 6 pass (config parsing, secret-safety, imports), 2 API tests skipped (fastapi absent). ruff/pytest unavailable in sandbox; configured for user machine.
+- 2026-08-24 23:34 IST — [M2] Built domain layer in `app/domain/`: enums.py (Modality/TaskType/Complexity/Strategy/KeyStatus/HealthStatus/ExecutionStatus/ClassificationSource), errors.py (ErrorCode taxonomy + ModelMeshError hierarchy + RETRYABLE/FAILOVER/TERMINAL policy sets), task.py (Task/Classification/TokenRange/WorkloadProfile), provider.py (ModelSpec/Provider), key.py (ApiKey — NO raw secret, only env-var name + one-way fingerprint + mask), route.py (Route/RoutePlan/RejectedCandidate), execution.py (Usage/Attempt/ExecutionResult), serialization.py (to_jsonable, deterministic). Re-exported via __init__.
+- 2026-08-24 23:34 IST — [M2] Tests: tests/unit/test_domain.py (26 cases incl. secret-never-serialized, fingerprint one-way, error-policy consistency, deterministic set serialization). Suite GREEN: 32 pass, 2 skip. Self-review fix: to_jsonable now sorts sets for stable API output.
