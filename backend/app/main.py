@@ -43,7 +43,10 @@ def create_app() -> FastAPI:
             "real_providers_configured": settings.has_real_provider_keys(),
         }
 
-    # Feature routers are mounted during the API milestone.
+    # Feature routers
+    from app.api.routes import router as api_router
+    app.include_router(api_router)
+
     return app
 
 
