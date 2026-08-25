@@ -120,29 +120,22 @@ abstract class ModelMeshDatabase : RoomDatabase() {
 
 ### A1.4 `Converters.kt`
 
-Use `kotlinx.serialization.json.Json` (already a dependency) to serialize the
-JSON columns. Register converters for:
+The four JSON columns hold `TelemetryView`, `PlanSummary`, `List<SubtaskView>`, and
+`VerificationView` — all declared in the frozen `data/models/TaskSnapshot.kt`.
 
-- `TelemetryView?` ↔ `String?`
-- `PlanSummary?` ↔ `String?`
-- `List<SubtaskView>?` ↔ `String?`
-- `VerificationView?` ↔ `String?`
+Those models are plain `data class`es and carry **no** `@Serializable` annotation,
+and `TaskSnapshot.kt` is frozen, so you cannot add one. Define `@Serializable`
+mirror classes inside `Converters.kt` (prefix them `Stored`), map
+domain → stored → JSON string and back, and expose the mapping as
+`@TypeConverter` methods using `kotlinx.serialization.json.Json` (already a
+dependency).
 
-All four models are in `data/models/TaskSnapshot.kt`. Use `@Serializable` via
-an `@JsonClass` adapter **or** write each as a simple `Json.encodeToString` /
-`Json.decodeFromString` call with the already-declared `@Serializable` annotation
-in the model.
+Required converter pairs, each `String?` ↔ model:
+`TelemetryView?`, `PlanSummary?`, `List<SubtaskView>?`, `VerificationView?`.
 
-Wait — the frozen domain models do NOT carry `@Serializable`. They are plain
-`data class`. So **do not annotate them** (they are frozen). Instead, write
-explicit converter methods that map each model to/from a manually-constructed
-`JsonObject`, or map to/from a local serializable mirror class defined inside
-`Converters.kt`.
-
-Simplest legal approach: define `@Serializable` mirror data classes inside
-`Converters.kt` prefixed with `Stored`, map domain → stored → JSON string and
-back, expose converter methods annotated `@TypeConverter`. No annotations on
-frozen files.
+Keep the `Stored*` mirrors field-for-field identical to the domain types. A
+round-trip test (§A8.1) is what protects against drift, since the compiler cannot
+see the correspondence.
 
 ### A1.5 Extension: `TaskEntity` ↔ domain
 
@@ -177,17 +170,26 @@ class DeviceCapabilities @Inject constructor(
 }
 ```
 
-NPU detection: `context.packageManager.hasSystemFeature("android.hardware.neural_networks")`.
-GPU detection: `Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()` is NOT a GPU signal —
-instead use `context.getSystemService(EglCore)` presence or simply `hasGPU = null`
-(honest: we cannot reliably detect GPU presence without privileged APIs).
+**Honesty rule for this class: report `null`, not `false`, for anything the
+platform cannot actually tell you.** `LocalMetadata`'s hardware fields are all
+nullable precisely so an unknown can be expressed. The backend treats these as
+hints and never trusts them for correctness, so a `null` costs nothing while a
+fabricated `true` corrupts a routing decision.
 
-Battery: `Intent` from `IntentFilter(Intent.ACTION_BATTERY_CHANGED)` via
-`registerReceiver(null, ...)`. Level = `level * 100 / scale`.
-
-Wi-Fi: `ConnectivityManager.getActiveNetwork()` + `NetworkCapabilities.hasTransport(TRANSPORT_WIFI)`.
-
-Device model: `Build.MANUFACTURER + " " + Build.MODEL`.
+- **NPU** — query `packageManager.hasSystemFeature("android.hardware.neuralnetworks")`.
+  Treat only `true` as informative; a `false` means "not declared", which is not
+  the same as "not present", so map it to `null`.
+- **GPU** — `null`. Every Android device has a GPU, so `true` is vacuous, and
+  whether *GPU-accelerated inference* is available cannot be determined from the
+  SDK.
+- **Battery** — `registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))`,
+  then `level * 100 / scale`. Clamp to 0–100 (the backend's Zod schema rejects
+  anything outside it).
+- **Wi-Fi** — `ConnectivityManager.activeNetwork` →
+  `getNetworkCapabilities(...)?.hasTransport(TRANSPORT_WIFI)`. `null` when there is
+  no active network at all, which is different from "on cellular".
+- **Device model** — `"${Build.MANUFACTURER} ${Build.MODEL}"`, truncated to 120
+  chars (schema limit).
 
 ### A2.2 `OnDevicePreprocessor.kt`
 
@@ -206,23 +208,39 @@ class OnDevicePreprocessor @Inject constructor(
 
 `prepare()` dispatches on `source.mimeType`:
 
-| MIME pattern | ML Kit pipeline |
+| MIME pattern | On-device pipeline |
 |---|---|
-| `image/*` | `TextRecognition` (Latin model) then `BarcodeScanning`. OCR text → `attachment.detectedText`. Barcode payload → `findings.barcodeData` and `InputType.QR`. Image dimensions from `BitmapFactory.decodeFile`. Base64-encode the image for the wire. |
-| `application/pdf` | `GmsDocumentScanner` if available (beta); otherwise: cast the URI as a PDF page via `PdfRenderer` (API 21+, fully offline, no Google Play dependency), render each page to a bitmap, run `TextRecognition` on each. Concatenate. **Do not include base64 for PDF** — send only `detectedText`. |
-| `audio/*`, `video/*` | No on-device ML Kit path for transcription. Return the attachment as-is with a null `detectedText` and a non-null `audioDurationSeconds` derived from `MediaMetadataRetriever`. Let the backend's audio adapter handle transcription. |
-| `text/*` | Read as UTF-8 string, populate `detectedText`. No base64. |
-| anything else | Return as-is; the backend rejects it with `UNSUPPORTED_MODALITY` unless it has `detectedText`. |
+| `image/*` | `TextRecognition` (Latin model), then `BarcodeScanning`. OCR text → `attachment.detectedText`. Barcode payload → `findings.barcodeData`. Dimensions from `BitmapFactory.Options(inJustDecodeBounds = true)`. Base64-encode the image for the wire — a vision model consumes it directly. |
+| `application/pdf` | `PdfRenderer` (API 21+, fully offline, no Play services) → render each page to a bitmap → `TextRecognition` per page → concatenate with page markers. Set `pageCount`. **Send no base64 for a PDF** — only `detectedText`. That is the whole point: a 4 MB scan becomes a few KB. Cap the pages you render (e.g. 20) and record the cap in the extracted text so a truncated read is visible rather than silent. |
+| `audio/*`, `video/*` | No offline ML Kit transcription exists. Return the attachment unchanged with `detectedText = null` and `audioDurationSeconds` from `MediaMetadataRetriever` (`METADATA_KEY_DURATION`, ms → seconds). The backend's adapter transcribes. |
+| `text/*` | Read as UTF-8 into `detectedText`. No base64. |
+| anything else | Return unchanged. The backend rejects it as `UNSUPPORTED_MODALITY` unless `detectedText` is present — which is the documented contract, not a bug to work around. |
 
-All ML Kit calls use the `Tasks.await()` Kotlin coroutine adapter
-(`com.google.android.gms:play-services-tasks`). Wrap in `withContext(Dispatchers.IO)`.
+Language identification: after OCR, run `LanguageIdentification.getClient()` on
+`detectedText.take(200)`; set `findings.detectedLanguage` only when the result is
+not `"und"`, otherwise leave it null.
 
-Language identification: run `LanguageIdentification.getClient()` on
-`detectedText.take(200)` after OCR, set `findings.detectedLanguage` if confidence
-≥ 0.7, otherwise leave null.
+**Coroutine bridging.** `kotlinx-coroutines-play-services` (which supplies
+`Task.await()`) is **not** a dependency, and `app/build.gradle.kts` is frozen. Wrap
+each ML Kit `Task` yourself:
 
-Failures: wrap ML Kit exceptions in `AppResult.Failure` with `ErrorCode.INTERNAL`
-and the exception message. Never throw.
+```kotlin
+private suspend fun <T> Task<T>.awaitResult(): T = suspendCancellableCoroutine { cont ->
+    addOnSuccessListener { cont.resume(it) }
+    addOnFailureListener { cont.resumeWithException(it) }
+    addOnCanceledListener { cont.cancel() }
+}
+```
+
+Run the whole of `prepare()` inside `withContext(Dispatchers.IO)`.
+
+The `play-services-mlkit-document-scanner` dependency is present but its API is
+activity-result driven, so it cannot be called from this layer. Leave it for a
+UI-initiated scan flow; the `PdfRenderer` path above is what `prepare()` uses.
+
+Failures: wrap every exception in `AppResult.Failure(ErrorCode.INTERNAL, message)`.
+**Never throw out of `prepare()`** — a file that fails OCR should still be
+attachable, because the backend can often still handle it.
 
 ---
 
