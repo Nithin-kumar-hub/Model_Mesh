@@ -359,7 +359,7 @@ cd Model_Mesh
 ### 2. Start the Backend
 
 ```bash
-pnpm --filter @modelmesh/api dev    # → http://localhost:3000
+pnpm --filter ./apps/api dev    # → http://localhost:3000
 ```
 
 ### 3. (Optional) Add Real Infrastructure
