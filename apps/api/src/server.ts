@@ -10,6 +10,7 @@ import { config } from './config';
 import { createAppContext, type AppContext } from './context';
 import { logger } from './infra/logger';
 import { TaskQueue, type TaskJobData } from './jobs/queues';
+import { DASHBOARD_HTML } from './dashboard';
 
 /** base64 payloads inflate ~33%; leave headroom above MAX_FILE_BYTES. */
 const BODY_LIMIT_BYTES = Math.max(32 * 1024 * 1024, config.limits.maxFileBytes * 2);
@@ -75,7 +76,13 @@ export const buildServer = async (options: BuildOptions = {}): Promise<BuiltServ
   await app.register(cors, { origin: '*', exposedHeaders: ['X-RateLimit-Remaining', 'X-RateLimit-Reset'] });
   await app.register(authPlugin);
 
-  // ── Health ──────────────────────────────────────────────────────────────
+  // ── Dashboard & Health ──────────────────────────────────────────────────
+  app.get('/', async (_request, reply) => {
+    return reply.type('text/html').send(DASHBOARD_HTML);
+  });
+  app.get('/dashboard', async (_request, reply) => {
+    return reply.type('text/html').send(DASHBOARD_HTML);
+  });
   app.get('/health', async () => ({ status: 'ok', service: 'modelmesh-api', version: '0.1.0' }));
 
   app.get('/ready', async (_request, reply) => {
@@ -166,7 +173,7 @@ const start = async (): Promise<void> => {
       execution: server.queue.mode,
       strategy: config.execution.defaultStrategy,
     },
-    'ModelMesh API listening',
+    'Neural Forge API listening',
   );
 };
 

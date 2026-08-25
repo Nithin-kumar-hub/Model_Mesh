@@ -1,8 +1,8 @@
 {
-  "name": "modelmesh",
+  "name": "neuralforge",
   "version": "0.1.0",
   "private": true,
-  "description": "ModelMesh — AI Workload Planner & Orchestrator",
+  "description": "Neural Forge — AI Workload Planner & Orchestrator",
   "packageManager": "pnpm@11.23.0",
   "engines": {
     "node": ">=20"
@@ -14,9 +14,9 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
-    "prisma": "pnpm --filter @modelmesh/api exec prisma",
-    "seed": "pnpm --filter @modelmesh/api run seed",
-    "test-providers": "pnpm --filter @modelmesh/api run test-providers"
+    "prisma": "pnpm --filter @neuralforge/api exec prisma",
+    "seed": "pnpm --filter @neuralforge/api run seed",
+    "test-providers": "pnpm --filter @neuralforge/api run test-providers"
   },
   "devDependencies": {
     "turbo": "^2.3.3",

@@ -38,7 +38,10 @@ postgresql==15                # docker compose up -d postgres
 redis==7                      # docker compose up -d redis
 docker-compose>=2             # only if you want the two above
 
-# ── AI provider credentials ──────────────────────────────────────────────────
+# ── AI provider credentials ──────────────────────────────────────────────────cd /home/pramodsb/Downloads/mind/MindTrace.AI
+source venv/bin/activate
+uvicorn backend.main:app --reload
+
 # None required. With no keys configured the backend enables a deterministic
 # mock provider that exercises every stage of the pipeline offline. Real keys go
 # in .env as comma-separated lists (GEMINI_API_KEYS, GROQ_API_KEYS,

@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔮 ModelMesh
+# 🔮 Neural Forge
 
 ### AI Workload Planner & Orchestrator
 
@@ -34,7 +34,7 @@ When you paste a 42 KB Java file and say *"find the bugs"*, a router shoves all 
 
 ## 🚀 The Solution
 
-**ModelMesh doesn't route — it *thinks*.**
+**Neural Forge doesn't route — it *thinks*.**
 
 It takes your request, understands the intent, decomposes it into a **dependency graph of subtasks**, gives each subtask **only the context slice it needs**, routes each one to the **model best suited by capability**, runs independent subtasks **in parallel**, recovers from failures **without killing the plan**, then merges, verifies, and reports **what it actually spent**.
 
@@ -88,7 +88,7 @@ Independent subtasks run **concurrently** across different models. A 5-node grap
 <td width="50%">
 
 ### 🔄 Self-Healing Recovery
-Provider fails? ModelMesh **retries → rotates keys → swaps models → re-plans** — the user never sees a crash.
+Provider fails? Neural Forge **retries → rotates keys → swaps models → re-plans** — the user never sees a crash.
 
 ### 📊 Honest Telemetry
 Savings are computed **only over subtasks that produced results**. Partial failures are reported. Nothing is hidden or inflated.
@@ -499,6 +499,6 @@ Backend + Android app with on-device ML preprocessing. A 4 MB PDF scan travels a
 
 **Built with ❤️ for the iQOO AI Hackathon**
 
-*ModelMesh — because intelligence should sit in the orchestrator, not the prompt.*
+*Neural Forge — because intelligence should sit in the orchestrator, not the prompt.*
 
 </div>
