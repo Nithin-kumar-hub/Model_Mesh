@@ -1,46 +1,67 @@
 <div align="center">
 
+<<<<<<< HEAD
 #  Neural Forge
+=======
+Neural Forge
 
-### AI Workload Planner & Orchestrator
+AI Workload Planner & Orchestrator
 
-**One prompt in → intelligent task graph out → right model for every subtask → verified result back.**
+One prompt in → intelligent task graph out → right model for every subtask → verified result back.
 
-[![Node.js](https://img.shields.io/badge/Node.js-≥20-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.0-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org/)
-[![Tests](https://img.shields.io/badge/Tests-192%20passing-brightgreen?logo=vitest&logoColor=white)](#-test-suite)
-[![License](https://img.shields.io/badge/License-Hackathon-blue)](#license)
+
+
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
+
+
+
 
 <br/>
 
-[**Quick Start**](#-quick-start) · [**Architecture**](#-architecture) · [**API Reference**](#-api-reference) · [**Demo**](#-see-it-in-action) · [**Contributing**](#-contributing)
+Quick Start · Architecture · API Reference · Demo · Contributing
 
+<<<<<<< HEAD
 ---
 
 *Built for the **iQOO AI Hackathon**
+=======
+*Built for the *iQOO AI Hackathon
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 </div>
 
 <br/>
 
+<<<<<<< HEAD
 ##  The Problem
+=======
+The Problem
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 Every AI app today does this: take a prompt → pick a model → send the whole thing → hope for the best.
 
-**That's a router. Not intelligence.**
+That's a router. Not intelligence.
 
-When you paste a 42 KB Java file and say *"find the bugs"*, a router shoves all 12,800 tokens into one model and prays. You pay for tokens you didn't need, wait for a single model's opinion, and get zero visibility into what happened.
+When you paste a 42 KB Java file and say "find the bugs", a router shoves all 12,800 tokens into one model and prays. You pay for tokens you didn't need, wait for a single model's opinion, and get zero visibility into what happened.
 
+<<<<<<< HEAD
 ##  The Solution
 
 **Neural Forge doesn't route — it *thinks*.**
+=======
+The Solution
 
-It takes your request, understands the intent, decomposes it into a **dependency graph of subtasks**, gives each subtask **only the context slice it needs**, routes each one to the **model best suited by capability**, runs independent subtasks **in parallel**, recovers from failures **without killing the plan**, then merges, verifies, and reports **what it actually spent**.
+Neural Forge doesn't route — it thinks.
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
+
+It takes your request, understands the intent, decomposes it into a dependency graph of subtasks, gives each subtask only the context slice it needs, routes each one to the model best suited by capability, runs independent subtasks in parallel, recovers from failures without killing the plan, then merges, verifies, and reports what it actually spent.
 
 <div align="center">
 
+<<<<<<< HEAD
 ```
+=======
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
  42 KB Java file + "find the bugs"
                     ↓
        ┌────────────────────────┐
@@ -62,19 +83,27 @@ It takes your request, understands the intent, decomposes it into a **dependency
        │  Calibrate → Report    │
        └────────────────────────┘
                     ↓
+<<<<<<< HEAD
            Verified result + honest telemetry
+=======
+         Verified result + honest telemetry
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
            6.7K tokens used vs 12.8K naive
            47.6% context reduction (measured, not estimated)
-```
 
 </div>
 
+<<<<<<< HEAD
 ##  Key Features
+=======
+Key Features
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 <table>
 <tr>
 <td width="50%">
 
+<<<<<<< HEAD
 ###  Intelligent Decomposition
 Requests become a **DAG of subtasks** with explicit dependencies and parallel batches — not a flat list of API calls.
 
@@ -83,10 +112,24 @@ Each subtask receives **only the context it needs**. A 12.8K token input becomes
 
 ###  Parallel Execution
 Independent subtasks run **concurrently** across different models. A 5-node graph with 3 independent nodes = 3 models working simultaneously.
+=======
+Intelligent Decomposition
+
+Requests become a DAG of subtasks with explicit dependencies and parallel batches — not a flat list of API calls.
+
+Context Slicing
+
+Each subtask receives only the context it needs. A 12.8K token input becomes four 1.8K slices. Savings are measured and surfaced, never estimated.
+
+Parallel Execution
+
+Independent subtasks run concurrently across different models. A 5-node graph with 3 independent nodes = 3 models working simultaneously.
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 </td>
 <td width="50%">
 
+<<<<<<< HEAD
 ###  Self-Healing Recovery
 Provider fails? Neural Forge **retries → rotates keys → swaps models → re-plans** — the user never sees a crash.
 
@@ -95,18 +138,34 @@ Savings are computed **only over subtasks that produced results**. Partial failu
 
 ###  Prompt Security
 User intent stays in the **directive channel**. OCR text, PDFs, and file contents travel as **escaped material** — injection attacks are neutralized server-side.
+=======
+Self-Healing Recovery
+
+Provider fails? Neural Forge retries → rotates keys → swaps models → re-plans — the user never sees a crash.
+
+Honest Telemetry
+
+Savings are computed only over subtasks that produced results. Partial failures are reported. Nothing is hidden or inflated.
+
+Prompt Security
+
+User intent stays in the directive channel. OCR text, PDFs, and file contents travel as escaped material — injection attacks are neutralized server-side.
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 </td>
 </tr>
 </table>
 
+<<<<<<< HEAD
 ##  Architecture
+=======
+Architecture
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-### The 15-Stage Pipeline
+The 15-Stage Pipeline
 
 Every request flows through a principled pipeline where each stage emits trace events for real-time observability:
 
-```
 request
   ├─   safety            sanitize directive channel, neutralize untrusted content
   ├─   classify          rule table first; LLM only when rules are unsure
@@ -123,11 +182,13 @@ request
   ├─   aggregate         collect, dedupe, detect contradictions, synthesize
   ├─   verify            critic + structural consistency, gated on confidence
   └─   telemetry         actuals vs estimates → EWMA calibration multipliers
+<<<<<<< HEAD
 ```
+=======
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-### System Architecture
+System Architecture
 
-```mermaid
 graph TB
     subgraph Client["Android App"]
         UI["Compose UI<br/>Input → Trace → Result"]
@@ -168,20 +229,31 @@ graph TB
     Pipeline --> Queue
     API --> PG
     Cache --> Redis
-```
 
-### Two Deployables
+Two Deployables
 
-| Component | Stack | Purpose |
-|-----------|-------|---------|
-| **Backend** (`apps/api`) | Node 20 · Fastify · Socket.io · Prisma · BullMQ | Owns the 15-stage pipeline, multi-provider orchestration, and telemetry |
-| **Android App** (`apps/android`) | Kotlin · Jetpack Compose · Hilt · Room · ML Kit | Multimodal front door — camera, PDF, audio, share-sheet with on-device preprocessing |
+Component
 
-## 🎬 See It In Action
+Stack
 
-### Zero to Demo in 60 Seconds
+Purpose
 
-```bash
+Backend (apps/api)
+
+Node 20 · Fastify · Socket.io · Prisma · BullMQ
+
+Owns the 15-stage pipeline, multi-provider orchestration, and telemetry
+
+Android App (apps/android)
+
+Kotlin · Jetpack Compose · Hilt · Room · ML Kit
+
+Multimodal front door — camera, PDF, audio, share-sheet with on-device preprocessing
+
+See It In Action
+
+Zero to Demo in 60 Seconds
+
 # No API keys needed. No Docker needed. No database needed.
 # The mock provider runs the full 15-stage pipeline offline.
 
@@ -191,11 +263,9 @@ cd Model_Mesh
 pnpm --filter @modelmesh/api dev
 
 # → http://localhost:3000 is live
-```
 
-### Submit Your First Task
+Submit Your First Task
 
-```bash
 curl -X POST http://localhost:3000/api/v1/tasks \
   -H "Content-Type: application/json" \
   -H "X-API-Key: dev-secret-change-me" \
@@ -208,10 +278,9 @@ curl -X POST http://localhost:3000/api/v1/tasks \
     }],
     "strategy": "balanced"
   }'
-```
 
-**Response** — the pipeline is already running:
-```json
+Response — the pipeline is already running:
+
 {
   "taskId": "tsk_abc123",
   "status": "processing",
@@ -219,13 +288,11 @@ curl -X POST http://localhost:3000/api/v1/tasks \
   "estimatedMs": 12000,
   "executionMode": "parallel"
 }
-```
 
-### Watch It Think (Real-Time)
+Watch It Think (Real-Time)
 
 Connect via Socket.io to see every pipeline stage as it happens:
 
-```javascript
 import { io } from "socket.io-client";
 
 const socket = io("http://localhost:3000", {
@@ -244,157 +311,357 @@ socket.on("trace", (event) => {
   // [verify]    → confidence 0.91, verification passed
   // [telemetry] → 6,714 tokens used, 47.6% context reduction
 });
-```
 
+<<<<<<< HEAD
 ##  Six Design Principles
+=======
+Six Design Principles
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-> These aren't aspirational — they're enforced in code and validated in tests.
+These aren't aspirational — they're enforced in code and validated in tests.
 
-| # | Principle | Enforcement |
-|---|-----------|-------------|
-| **1** | **Never send full context to every model** | Per-subtask slicing. `contextReductionPercent` is measured and surfaced, never estimated optimistically. |
-| **2** | **A DAG, not a list** | Decomposition produces explicit dependencies and parallel batches; the app draws the actual execution graph. |
-| **3** | **Capability-based routing** | The app never names a model. It may express a budget and a "prefer on-device" hint; the backend chooses. |
-| **4** | **Every estimate gets calibrated** | Actuals feed EWMA multipliers per task type and role; user ratings feed the same loop. |
-| **5** | **Confidence drives compute** | Confidence is inferred from output patterns, not self-reported, and it decides whether verification runs. |
-| **6** | **User intent ≠ untrusted content** | Typed instruction is the only thing in the directive channel; OCR/PDF/file contents are delimiter-escaped. Enforced on both client and server. |
+#
 
+<<<<<<< HEAD
 ##  Android App — On-Device Intelligence
+=======
+Principle
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-The Android app isn't just a chat UI — it's a **multimodal preprocessing engine**:
+Enforcement
 
+<<<<<<< HEAD
 | Input | On Device | On The Wire |
 |-------|-----------|-------------|
 |  **Image** | ML Kit OCR + barcode + dimensions | Base64 (for vision models) + extracted text |
 |  **PDF** | `PdfRenderer` → bitmap → OCR per page (≤20 pages) | **Text only** — a 4 MB scan travels as a few KB |
 |  **Text file** | Read as UTF-8 | Text only |
 |  **Audio/Video** | Duration via `MediaMetadataRetriever` | Metadata only |
+=======
+1
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-**Offline-first by design:** Every `observe*` flow reads from Room. Network writes to Room. Room re-emits. The screen renders with the radio off and updates when the backend answers.
+Never send full context to every model
 
+<<<<<<< HEAD
 ##  Test Suite
+=======
+Per-subtask slicing. contextReductionPercent is measured and surfaced, never estimated optimistically.
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-**192 tests across 11 files — all passing.**
+2
 
-```bash
+A DAG, not a list
+
+Decomposition produces explicit dependencies and parallel batches; the app draws the actual execution graph.
+
+3
+
+Capability-based routing
+
+The app never names a model. It may express a budget and a "prefer on-device" hint; the backend chooses.
+
+4
+
+Every estimate gets calibrated
+
+Actuals feed EWMA multipliers per task type and role; user ratings feed the same loop.
+
+5
+
+Confidence drives compute
+
+Confidence is inferred from output patterns, not self-reported, and it decides whether verification runs.
+
+6
+
+User intent ≠ untrusted content
+
+Typed instruction is the only thing in the directive channel; OCR/PDF/file contents are delimiter-escaped. Enforced on both client and server.
+
+Android App — On-Device Intelligence
+
+The Android app isn't just a chat UI — it's a multimodal preprocessing engine:
+
+Input
+
+On Device
+
+On The Wire
+
+Image
+
+ML Kit OCR + barcode + dimensions
+
+Base64 (for vision models) + extracted text
+
+PDF
+
+PdfRenderer → bitmap → OCR per page (≤20 pages)
+
+Text only — a 4 MB scan travels as a few KB
+
+Text file
+
+Read as UTF-8
+
+Text only
+
+Audio/Video
+
+Duration via MediaMetadataRetriever
+
+Metadata only
+
+Offline-first by design: Every observe* flow reads from Room. Network writes to Room. Room re-emits. The screen renders with the radio off and updates when the backend answers.
+
+Test Suite
+
+192 tests across 11 files — all passing.
+
 pnpm --filter @modelmesh/api test         # Run all tests
 pnpm --filter @modelmesh/api typecheck    # Type safety
 pnpm --filter @modelmesh/api build        # Production build
-```
 
-| Test File | What It Validates |
-|-----------|-------------------|
-| `dag.test.ts` | Cycle detection, parallel groups, dependency validation |
-| `scheduler.test.ts` | Group execution, degraded dependencies, re-planning |
-| `optimizer.test.ts` | Token passes, fenced-code preservation, context slicing |
-| `profiler.test.ts` | Estimates and naive baseline comparison |
-| `calibration.test.ts` | EWMA multipliers and clamping |
-| `keys.test.ts` | Health scoring, 429 rotation, quota exhaustion |
-| `classifier.test.ts` | Rule table, modality evidence, complexity |
-| `safety.test.ts` | Injection scoring, directive channel neutralization |
-| `mock-provider.test.ts` | Determinism, role-shaped JSON, failure injection |
-| `tasks.test.ts` | End-to-end `POST /tasks`, strategy differences, hostile documents |
-| `telemetry-honesty.test.ts` | Savings counted only for subtasks that actually ran |
+Test File
 
+<<<<<<< HEAD
 ##  API Reference
+=======
+What It Validates
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-**Base:** `/api/v1` · **Auth:** `X-API-Key` header on every call
+dag.test.ts
 
-### Core Endpoints
+Cycle detection, parallel groups, dependency validation
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/tasks` | Submit a task → `202` with taskId, websocket room, estimates |
-| `GET` | `/tasks/:taskId` | Full snapshot: result, plan, subtasks, verification, telemetry |
-| `GET` | `/tasks/:taskId/trace` | Execution trace events (polling fallback) |
-| `GET` | `/tasks/:taskId/events` | SSE mirror of the websocket stream |
-| `GET` | `/tasks?limit=` | List tasks (1–100, default 20) |
-| `POST` | `/tasks/:taskId/feedback` | Submit rating (1–5) → feeds calibration loop |
+scheduler.test.ts
 
-### Provider Management
+Group execution, degraded dependencies, re-planning
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/providers/status` | Provider health and availability |
-| `GET` | `/providers/models` | Available models and capabilities |
-| `GET` | `/providers/keys` | Registered keys (masked) |
-| `POST` | `/providers/keys` | Register a new API key (deduplicated by hash) |
+optimizer.test.ts
 
-### Observability
+Token passes, fenced-code preservation, context slicing
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/telemetry/stats?days=` | Usage statistics over time |
-| `GET` | `/telemetry/calibration` | Current calibration multipliers |
-| `GET` | `/health` | Health check (unauthenticated) |
-| `GET` | `/ready` | Readiness probe (unauthenticated) |
+profiler.test.ts
 
-### Socket.io Real-Time
+Estimates and naive baseline comparison
 
-```
+calibration.test.ts
+
+EWMA multipliers and clamping
+
+keys.test.ts
+
+Health scoring, 429 rotation, quota exhaustion
+
+classifier.test.ts
+
+Rule table, modality evidence, complexity
+
+safety.test.ts
+
+Injection scoring, directive channel neutralization
+
+mock-provider.test.ts
+
+Determinism, role-shaped JSON, failure injection
+
+tasks.test.ts
+
+End-to-end POST /tasks, strategy differences, hostile documents
+
+telemetry-honesty.test.ts
+
+Savings counted only for subtasks that actually ran
+
+API Reference
+
+Base: /api/v1 · Auth: X-API-Key header on every call
+
+Core Endpoints
+
+Method
+
+Endpoint
+
+Description
+
+POST
+
+/tasks
+
+Submit a task → 202 with taskId, websocket room, estimates
+
+GET
+
+/tasks/:taskId
+
+Full snapshot: result, plan, subtasks, verification, telemetry
+
+GET
+
+/tasks/:taskId/trace
+
+Execution trace events (polling fallback)
+
+GET
+
+/tasks/:taskId/events
+
+SSE mirror of the websocket stream
+
+GET
+
+/tasks?limit=
+
+List tasks (1–100, default 20)
+
+POST
+
+/tasks/:taskId/feedback
+
+Submit rating (1–5) → feeds calibration loop
+
+Provider Management
+
+Method
+
+Endpoint
+
+Description
+
+GET
+
+/providers/status
+
+Provider health and availability
+
+GET
+
+/providers/models
+
+Available models and capabilities
+
+GET
+
+/providers/keys
+
+Registered keys (masked)
+
+POST
+
+/providers/keys
+
+Register a new API key (deduplicated by hash)
+
+Observability
+
+Method
+
+Endpoint
+
+Description
+
+GET
+
+/telemetry/stats?days=
+
+Usage statistics over time
+
+GET
+
+/telemetry/calibration
+
+Current calibration multipliers
+
+GET
+
+/health
+
+Health check (unauthenticated)
+
+GET
+
+/ready
+
+Readiness probe (unauthenticated)
+
+Socket.io Real-Time
+
 Path: /ws
 Auth: { apiKey: "your-key" }
 Events: subscribe → trace_history (replay) → trace (live stream)
 Limit: 5 concurrent connections per key
 Fallback: GET /tasks/:id/trace (polling)
-```
 
+<<<<<<< HEAD
 ##  Quick Start
+=======
+Quick Start
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-### Prerequisites
+Prerequisites
 
-| Component | Requirement |
-|-----------|-------------|
-| **Backend** | Node ≥ 20, pnpm ≥ 11 |
-| **Infrastructure** | Docker (optional — for Postgres + Redis) |
-| **Android** | JDK 17, Android SDK 35, Android Studio Ladybug+ |
-| **AI Providers** | Nothing — mock provider runs the full pipeline offline |
+Component
 
-### 1. Clone & Setup
+Requirement
 
-```bash
+Backend
+
+Node ≥ 20, pnpm ≥ 11
+
+Infrastructure
+
+Docker (optional — for Postgres + Redis)
+
+Android
+
+JDK 17, Android SDK 35, Android Studio Ladybug+
+
+AI Providers
+
+Nothing — mock provider runs the full pipeline offline
+
+1. Clone & Setup
+
 git clone https://github.com/your-org/Model_Mesh.git
 cd Model_Mesh
 ./scripts/setup.sh    # Checks tools, installs deps, generates Prisma, runs tests
-```
 
-### 2. Start the Backend
+2. Start the Backend
 
-```bash
 pnpm --filter @modelmesh/api dev    # → http://localhost:3000
-```
 
-### 3. (Optional) Add Real Infrastructure
+3. (Optional) Add Real Infrastructure
 
-```bash
 docker compose up -d    # Postgres 15 + Redis 7
 pnpm run seed           # Register provider keys from .env
-```
 
-### 4. (Optional) Add AI Provider Keys
+4. (Optional) Add AI Provider Keys
 
-```bash
 cp .env.example .env
 # Edit .env and add your API keys:
 # GEMINI_API_KEYS="key1,key2"
 # GROQ_API_KEYS="key1"
-```
 
-### 5. (Optional) Build Android
+5. (Optional) Build Android
 
-```bash
 cd apps/android
 gradle wrapper --gradle-version 8.11.1
 ./gradlew :app:assembleDebug
-```
 
-> **Note:** The Android app requires the UI track's `res/` and `MainActivity.kt` to compile. The data layer, preprocessing, and DI graph are complete.
+Note: The Android app requires the UI track's res/ and MainActivity.kt to compile. The data layer, preprocessing, and DI graph are complete.
 
+<<<<<<< HEAD
 ##  Project Structure
+=======
+Project Structure
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-```
 Model_Mesh/
 ├── apps/
+<<<<<<< HEAD
 │   ├── api/                         Node 20 + Fastify + Socket.io backend
 │   │   ├── src/
 │   │   │   ├── core/
@@ -414,10 +681,32 @@ Model_Mesh/
 │   │   ├── prisma/schema.prisma
 │   │   └── tests/                   11 files, 192 tests
 │   └── android/                     Kotlin + Compose (JVM 17, minSdk 26)
+=======
+│   ├── api/                        Node 20 + Fastify + Socket.io backend
+│   │   ├── src/
+│   │   │   ├── core/
+│   │   │   │   ├── intelligence/   classifier, decomposer, enhancer, profiler
+│   │   │   │   ├── orchestrator/   DAG, executor, planner, recovery, scheduler
+│   │   │   │   ├── optimizer/      context compression & slicing
+│   │   │   │   ├── providers/      gemini, groq, together, mistral, openrouter, mock
+│   │   │   │   ├── aggregator/     result synthesis & contradiction detection
+│   │   │   │   ├── verifier/       confidence-gated verification
+│   │   │   │   ├── cache/          semantic caching layer
+│   │   │   │   ├── telemetry/      calibration & honest reporting
+│   │   │   │   └── pipeline.ts     15-stage orchestration entry point
+│   │   │   ├── keys/               multi-key manager + quota-aware rotator
+│   │   │   ├── api/                routes + auth/rate-limit/safety middleware
+│   │   │   ├── infra/              store, persistence, crypto, text, logger
+│   │   │   └── jobs/               BullMQ queue + worker (in-process fallback)
+│   │   ├── prisma/schema.prisma
+│   │   └── tests/                  11 files, 192 tests
+│   └── android/                    Kotlin + Compose (JVM 17, minSdk 26)
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 │       └── app/src/
 │           ├── domain/             use cases + ports
 │           ├── data/               API client, Room DB, ML Kit preprocessing
 │           └── di/                 Hilt modules
+<<<<<<< HEAD
 ├── packages/types/                  shared TypeScript contract
 ├── scripts/                          setup.sh, seed-keys.ts, test-providers.ts
 ├── docker-compose.yml               Postgres 15 + Redis 7 (both optional)
@@ -425,78 +714,230 @@ Model_Mesh/
 ```
 
 ##  Configuration
+=======
+├── packages/types/                 shared TypeScript contract
+├── scripts/                        setup.sh, seed-keys.ts, test-providers.ts
+├── docker-compose.yml              Postgres 15 + Redis 7
+└── turbo.json                      Turborepo monorepo config
+
+Configuration
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 All variables have working defaults. Zero configuration needed for demo mode.
 
 <details>
+<<<<<<< HEAD
 <summary><b> Full Environment Variable Reference</b></summary>
+=======
+<summary><b>Full Environment Variable Reference</b></summary>
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` / `HOST` | `3000` / `0.0.0.0` | HTTP listener |
-| `NODE_ENV` | `development` | Environment |
-| `API_SECRET` | `dev-secret-change-me` | API key for all REST and socket auth |
-| `KEY_ENCRYPTION_SECRET` | dev value | AES-256-GCM key-at-rest encryption |
-| `DATABASE_URL` | — | Postgres connection (optional) |
-| `REDIS_URL` | — | Redis connection (optional) |
-| `PERSISTENCE` | `auto` | `auto` · `prisma` · `memory` |
-| `CACHE_BACKEND` | `auto` | `auto` · `redis` · `memory` |
-| `GEMINI_API_KEYS` | — | Comma-separated API keys |
-| `GROQ_API_KEYS` | — | Comma-separated API keys |
-| `TOGETHER_API_KEYS` | — | Comma-separated API keys |
-| `MISTRAL_API_KEYS` | — | Comma-separated API keys |
-| `OPENROUTER_API_KEYS` | — | Comma-separated API keys |
-| `ENABLE_MOCK_PROVIDER` | `true` | Auto-enables when no real keys exist |
-| `ENABLE_SEMANTIC_CACHE` | `true` | Semantic result caching |
-| `ENABLE_PARALLEL_EXECUTION` | `true` | Parallel subtask execution |
-| `ENABLE_VERIFICATION` | `true` | Confidence-gated verification |
-| `MAX_PARALLEL_SUBTASKS` | `4` | Width of a parallel batch |
-| `DEFAULT_STRATEGY` | `balanced` | `draft` · `balanced` · `premium` |
-| `TASK_TIMEOUT_MS` | `60000` | Total task timeout |
-| `PROVIDER_TIMEOUT_MS` | `45000` | Per-provider call timeout |
-| `MAX_FILE_BYTES` | `20971520` | Max file size (20 MB) |
-| `MAX_ATTEMPTS_PER_SUBTASK` | `3` | Retry limit per subtask |
+Variable
+
+Default
+
+Description
+
+PORT / HOST
+
+3000 / 0.0.0.0
+
+HTTP listener
+
+NODE_ENV
+
+development
+
+Environment
+
+API_SECRET
+
+dev-secret-change-me
+
+API key for all REST and socket auth
+
+KEY_ENCRYPTION_SECRET
+
+dev value
+
+AES-256-GCM key-at-rest encryption
+
+DATABASE_URL
+
+—
+
+Postgres connection (optional)
+
+REDIS_URL
+
+—
+
+Redis connection (optional)
+
+PERSISTENCE
+
+auto
+
+auto · prisma · memory
+
+CACHE_BACKEND
+
+auto
+
+auto · redis · memory
+
+GEMINI_API_KEYS
+
+—
+
+Comma-separated API keys
+
+GROQ_API_KEYS
+
+—
+
+Comma-separated API keys
+
+TOGETHER_API_KEYS
+
+—
+
+Comma-separated API keys
+
+MISTRAL_API_KEYS
+
+—
+
+Comma-separated API keys
+
+OPENROUTER_API_KEYS
+
+—
+
+Comma-separated API keys
+
+ENABLE_MOCK_PROVIDER
+
+true
+
+Auto-enables when no real keys exist
+
+ENABLE_SEMANTIC_CACHE
+
+true
+
+Semantic result caching
+
+ENABLE_PARALLEL_EXECUTION
+
+true
+
+Parallel subtask execution
+
+ENABLE_VERIFICATION
+
+true
+
+Confidence-gated verification
+
+MAX_PARALLEL_SUBTASKS
+
+4
+
+Width of a parallel batch
+
+DEFAULT_STRATEGY
+
+balanced
+
+draft · balanced · premium
+
+TASK_TIMEOUT_MS
+
+60000
+
+Total task timeout
+
+PROVIDER_TIMEOUT_MS
+
+45000
+
+Per-provider call timeout
+
+MAX_FILE_BYTES
+
+20971520
+
+Max file size (20 MB)
+
+MAX_ATTEMPTS_PER_SUBTASK
+
+3
+
+Retry limit per subtask
 
 </details>
 
+<<<<<<< HEAD
 ##  Contributing
+=======
+Contributing
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
-This is a monorepo managed with [Turborepo](https://turbo.build/) and [pnpm workspaces](https://pnpm.io/workspaces).
+This is a monorepo managed with Turborepo and pnpm workspaces.
 
-```bash
 pnpm install              # Install all dependencies
 pnpm run dev              # Start all apps in dev mode
 pnpm run build            # Build everything
 pnpm run test             # Run all tests
 pnpm run typecheck        # Type-check everything
-```
 
+<<<<<<< HEAD
 ##  Why This Wins
+=======
+Why This Wins
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 <table>
 <tr>
 <td width="33%" align="center">
+<<<<<<< HEAD
+=======
+<h3></h3>
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 <b>Not a wrapper</b><br/>
 A 15-stage pipeline with DAG decomposition, context slicing, and capability routing. This is AI infrastructure, not another API proxy.
 </td>
 <td width="33%" align="center">
+<<<<<<< HEAD
+=======
+<h3></h3>
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 <b>Full stack</b><br/>
 Backend + Android app with on-device ML preprocessing. A 4 MB PDF scan travels as a few KB of text.
 </td>
 <td width="33%" align="center">
+<<<<<<< HEAD
 
+=======
+<h3></h3>
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 <b>Actually tested</b><br/>
 192 passing tests. Types checked. Builds clean. Honest telemetry — partial failures are never hidden.
 </td>
 </tr>
 </table>
 
----
-
 <div align="center">
 
+<<<<<<< HEAD
 **Built with  for the iQOO AI Hackathon**
 
 *Neural Forge — because intelligence should sit in the orchestrator, not the prompt.*
+=======
+Built with love for the iQOO AI Hackathon
+
+Neural Forge — because intelligence should sit in the orchestrator, not the prompt.
+>>>>>>> 9716657adc6e87af1b5902cf9378ff5921627fe9
 
 </div>
