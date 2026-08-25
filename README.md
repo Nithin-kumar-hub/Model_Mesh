@@ -177,8 +177,6 @@ graph TB
 | **Backend** (`apps/api`) | Node 20 · Fastify · Socket.io · Prisma · BullMQ | Owns the 15-stage pipeline, multi-provider orchestration, and telemetry |
 | **Android App** (`apps/android`) | Kotlin · Jetpack Compose · Hilt · Room · ML Kit | Multimodal front door — camera, PDF, audio, share-sheet with on-device preprocessing |
 
-## 🎬 See It In Action
-
 ### Zero to Demo in 60 Seconds
 
 ```bash
