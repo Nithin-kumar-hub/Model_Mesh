@@ -1,3 +1,33 @@
+# ---- Monorepo, Node & Frontend ----
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
+.turbo/
+**/.turbo/
+*.tsbuildinfo
+**/*.tsbuildinfo
+.vite/
+**/.vite/
+.next/
+**/.next/
+.nuxt/
+**/.nuxt/
+.output/
+**/.output/
+.svelte-kit/
+**/.svelte-kit/
+.cache/
+**/.cache/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.local
+
 # ---- Python ----
 __pycache__/
 *.py[cod]
@@ -16,6 +46,25 @@ env/
 htmlcov/
 coverage.xml
 
+# ---- Android & Mobile ----
+.gradle/
+**/.gradle/
+local.properties
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+.externalNativeBuild/
+.cxx/
+captures/
+
+# ---- Databases & SQLite ----
+*.db
+*.db-journal
+*.sqlite
+*.sqlite-journal
+
 # ---- Secrets & Environment ----
 .env
 .env.*
@@ -24,25 +73,9 @@ coverage.xml
 backend/.env
 backend/.env.*
 !.env.example
-!backend/.env.example
+!*.env.example
 *.pem
 *.key
-
-# ---- Node & Frontend ----
-node_modules/
-**/node_modules/
-dist/
-**/dist/
-build/
-**/build/
-.vite/
-**/.vite/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.eslintcache
-*.local
 
 # ---- OS & IDEs ----
 .DS_Store
@@ -53,7 +86,12 @@ Thumbs.db
 *.swo
 *~
 
-# ---- Logs & Progress Tracking ----
+# ---- Logs & Temporary Debug Files ----
+*.log
+logs/
+claude_debug/
+
+# ---- Whitelisted Documentation ----
 !PROGRESS_LOG.md
 !*.md
-
+DEBUG_SESSION_*.md
