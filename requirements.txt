@@ -1,0 +1,49 @@
+# ModelMesh — build & run requirements
+#
+# This is NOT a pip manifest: the project contains no Python. It exists as a
+# single place to read the versions you need on the machine before anything will
+# build. Actual dependency resolution lives where the tooling expects it:
+#
+#   backend  → package.json + pnpm-lock.yaml (pnpm workspaces, Turborepo)
+#   Android  → apps/android/gradle/libs.versions.toml (Gradle version catalog)
+#
+# Verified against this repository on 2026-08-25.
+
+# ── Backend: apps/api ────────────────────────────────────────────────────────
+node>=20                      # package.json engines; verified on v24.14.0
+pnpm==11.23.0                 # package.json packageManager
+                              #   corepack enable
+                              #   corepack prepare pnpm@11.23.0 --activate
+typescript~=5.4.5             # installed by pnpm, listed here for reference
+
+# ── Android: apps/android ────────────────────────────────────────────────────
+jdk==17                       # app/build.gradle.kts: JavaVersion.VERSION_17,
+                              # jvmTarget JVM_17. JDK 21 will NOT do.
+android-sdk-platform==35      # compileSdk = 35, targetSdk = 35
+android-sdk-min==26           # minSdk = 26 (java.time needs no desugaring)
+android-gradle-plugin==8.7.3  # gradle/libs.versions.toml
+gradle==8.11.1                # gradle/wrapper/gradle-wrapper.properties
+                              # gradlew and gradle-wrapper.jar are binaries and
+                              # are not committed:
+                              #   cd apps/android
+                              #   gradle wrapper --gradle-version 8.11.1
+                              # or open the project in Android Studio.
+kotlin==2.0.21                # with KSP 2.0.21-1.0.28
+
+# ── Optional infrastructure ──────────────────────────────────────────────────
+# Both are genuinely optional. PERSISTENCE=auto and CACHE_BACKEND=auto try the
+# real backend and fall back to in-process implementations, so the full pipeline
+# runs on a laptop with nothing installed but Node.
+postgresql==15                # docker compose up -d postgres
+redis==7                      # docker compose up -d redis
+docker-compose>=2             # only if you want the two above
+
+# ── AI provider credentials ──────────────────────────────────────────────────
+# None required. With no keys configured the backend enables a deterministic
+# mock provider that exercises every stage of the pipeline offline. Real keys go
+# in .env as comma-separated lists (GEMINI_API_KEYS, GROQ_API_KEYS,
+# TOGETHER_API_KEYS, MISTRAL_API_KEYS, OPENROUTER_API_KEYS) and are registered
+# with a running backend by `pnpm run seed`.
+
+# ── Getting started ──────────────────────────────────────────────────────────
+# ./scripts/setup.sh            checks all of the above, installs, runs the tests

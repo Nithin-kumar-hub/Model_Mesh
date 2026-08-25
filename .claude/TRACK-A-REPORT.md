@@ -49,9 +49,18 @@ backend is still green: **192 tests, typecheck clean, build clean**. Kotlin was
 
 ### Repo level
 `scripts/setup.sh`, `scripts/seed-keys.ts`, `scripts/test-providers.ts` (all `chmod +x`),
-`README.md`, `.claude/IMPLEMENTATION-NOTES.md`, `.claude/TRACK-A-REPORT.md`.
+`requirements.txt`, `README.md`, `.claude/IMPLEMENTATION-NOTES.md`,
+`.claude/TRACK-A-REPORT.md`.
 
-**27 files created** (15 Kotlin sources + 6 JVM test files + 3 scripts + 3 docs).
+`requirements.txt` is a **toolchain prerequisites list, not a pip manifest** — this
+repository contains no Python. It records the versions each part of the build needs
+(Node ≥ 20, pnpm 11.23.0, JDK 17, SDK 35, AGP 8.7.3, Gradle 8.11.1, Kotlin 2.0.21,
+optional Postgres 15 / Redis 7) together with the file each one is read from, so the
+numbers can be re-checked rather than trusted. Dependency *resolution* stays where the
+tooling expects it: `package.json` + `pnpm-lock.yaml` and
+`apps/android/gradle/libs.versions.toml`.
+
+**28 files created** (15 Kotlin sources + 6 JVM test files + 3 scripts + 4 docs).
 **0 files modified.**
 
 ---
