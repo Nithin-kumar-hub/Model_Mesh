@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔮 Neural Forge
+#  Neural Forge
 
 ### AI Workload Planner & Orchestrator
 
@@ -18,13 +18,13 @@
 
 ---
 
-*Built for the **iQOO AI Hackathon** 🏆*
+*Built for the **iQOO AI Hackathon**
 
 </div>
 
 <br/>
 
-## 💡 The Problem
+##  The Problem
 
 Every AI app today does this: take a prompt → pick a model → send the whole thing → hope for the best.
 
@@ -32,7 +32,7 @@ Every AI app today does this: take a prompt → pick a model → send the whole 
 
 When you paste a 42 KB Java file and say *"find the bugs"*, a router shoves all 12,800 tokens into one model and prays. You pay for tokens you didn't need, wait for a single model's opinion, and get zero visibility into what happened.
 
-## 🚀 The Solution
+##  The Solution
 
 **Neural Forge doesn't route — it *thinks*.**
 
@@ -41,7 +41,7 @@ It takes your request, understands the intent, decomposes it into a **dependency
 <div align="center">
 
 ```
-📄 42 KB Java file + "find the bugs"
+ 42 KB Java file + "find the bugs"
                     ↓
        ┌────────────────────────┐
        │  Classify → Enhance →  │
@@ -62,45 +62,45 @@ It takes your request, understands the intent, decomposes it into a **dependency
        │  Calibrate → Report    │
        └────────────────────────┘
                     ↓
-        ✅ Verified result + honest telemetry
+           Verified result + honest telemetry
            6.7K tokens used vs 12.8K naive
            47.6% context reduction (measured, not estimated)
 ```
 
 </div>
 
-## ✨ Key Features
+##  Key Features
 
 <table>
 <tr>
 <td width="50%">
 
-### 🧠 Intelligent Decomposition
+###  Intelligent Decomposition
 Requests become a **DAG of subtasks** with explicit dependencies and parallel batches — not a flat list of API calls.
 
-### 🎯 Context Slicing
+###  Context Slicing
 Each subtask receives **only the context it needs**. A 12.8K token input becomes four 1.8K slices. Savings are measured and surfaced, never estimated.
 
-### ⚡ Parallel Execution
+###  Parallel Execution
 Independent subtasks run **concurrently** across different models. A 5-node graph with 3 independent nodes = 3 models working simultaneously.
 
 </td>
 <td width="50%">
 
-### 🔄 Self-Healing Recovery
+###  Self-Healing Recovery
 Provider fails? Neural Forge **retries → rotates keys → swaps models → re-plans** — the user never sees a crash.
 
-### 📊 Honest Telemetry
+###  Honest Telemetry
 Savings are computed **only over subtasks that produced results**. Partial failures are reported. Nothing is hidden or inflated.
 
-### 🛡️ Prompt Security
+###  Prompt Security
 User intent stays in the **directive channel**. OCR text, PDFs, and file contents travel as **escaped material** — injection attacks are neutralized server-side.
 
 </td>
 </tr>
 </table>
 
-## 🏗 Architecture
+##  Architecture
 
 ### The 15-Stage Pipeline
 
@@ -108,35 +108,35 @@ Every request flows through a principled pipeline where each stage emits trace e
 
 ```
 request
-  ├─ 🛡️  safety            sanitize directive channel, neutralize untrusted content
-  ├─ 🏷️  classify          rule table first; LLM only when rules are unsure
-  ├─ ✏️  enhance           split intent from material, restate goal/constraints
-  ├─ 📦  optimize          compress master context, code blocks preserved verbatim
-  ├─ 🔀  decompose         → DAG of subtasks with explicit dependencies
-  ├─ 📐  profile           per-node token + latency estimates, calibration-corrected
-  ├─ ✂️  slice             per-node context: only the sections that node needs
-  ├─ 📋  plan              3 candidate plans (draft / balanced / premium), costed
-  ├─ 📅  schedule          Kahn topological sort → parallel execution groups
-  ├─ 🎯  route             capability match → ranked models → first available key
-  ├─ ⚙️  execute           provider call, cache check, confidence inference
-  ├─ 🔄  recover           retry / rotate key / swap model / skip / re-plan
-  ├─ 🔗  aggregate         collect, dedupe, detect contradictions, synthesize
-  ├─ ✅  verify            critic + structural consistency, gated on confidence
-  └─ 📊  telemetry         actuals vs estimates → EWMA calibration multipliers
+  ├─   safety            sanitize directive channel, neutralize untrusted content
+  ├─   classify          rule table first; LLM only when rules are unsure
+  ├─   enhance           split intent from material, restate goal/constraints
+  ├─   optimize          compress master context, code blocks preserved verbatim
+  ├─   decompose         → DAG of subtasks with explicit dependencies
+  ├─   profile           per-node token + latency estimates, calibration-corrected
+  ├─   slice             per-node context: only the sections that node needs
+  ├─   plan              3 candidate plans (draft / balanced / premium), costed
+  ├─   schedule          Kahn topological sort → parallel execution groups
+  ├─   route             capability match → ranked models → first available key
+  ├─   execute           provider call, cache check, confidence inference
+  ├─   recover           retry / rotate key / swap model / skip / re-plan
+  ├─   aggregate         collect, dedupe, detect contradictions, synthesize
+  ├─   verify            critic + structural consistency, gated on confidence
+  └─   telemetry         actuals vs estimates → EWMA calibration multipliers
 ```
 
 ### System Architecture
 
 ```mermaid
 graph TB
-    subgraph Client["📱 Android App"]
+    subgraph Client["Android App"]
         UI["Compose UI<br/>Input → Trace → Result"]
         OCR["On-Device ML Kit<br/>OCR • Barcode • Language ID"]
         Room["Room DB<br/>Offline-First Cache"]
         Hilt["Hilt DI"]
     end
 
-    subgraph Backend["⚡ Node.js Backend"]
+    subgraph Backend["Node.js Backend"]
         API["Fastify REST API<br/>+ Socket.io Real-time"]
         Pipeline["15-Stage Pipeline"]
         Keys["Multi-Key Manager<br/>Quota-Aware Rotator"]
@@ -144,7 +144,7 @@ graph TB
         Queue["BullMQ Job Queue<br/>In-Process Fallback"]
     end
 
-    subgraph Providers["🤖 AI Providers"]
+    subgraph Providers["AI Providers"]
         Gemini["Google Gemini"]
         Groq["Groq"]
         Together["Together AI"]
@@ -153,7 +153,7 @@ graph TB
         Mock["Mock Provider<br/>(Zero-Config Demo)"]
     end
 
-    subgraph Infra["🗄️ Infrastructure (Optional)"]
+    subgraph Infra["Infrastructure (Optional)"]
         PG["PostgreSQL 15"]
         Redis["Redis 7"]
     end
@@ -246,7 +246,7 @@ socket.on("trace", (event) => {
 });
 ```
 
-## 🧬 Six Design Principles
+##  Six Design Principles
 
 > These aren't aspirational — they're enforced in code and validated in tests.
 
@@ -259,20 +259,20 @@ socket.on("trace", (event) => {
 | **5** | **Confidence drives compute** | Confidence is inferred from output patterns, not self-reported, and it decides whether verification runs. |
 | **6** | **User intent ≠ untrusted content** | Typed instruction is the only thing in the directive channel; OCR/PDF/file contents are delimiter-escaped. Enforced on both client and server. |
 
-## 📱 Android App — On-Device Intelligence
+##  Android App — On-Device Intelligence
 
 The Android app isn't just a chat UI — it's a **multimodal preprocessing engine**:
 
 | Input | On Device | On The Wire |
 |-------|-----------|-------------|
-| 📷 **Image** | ML Kit OCR + barcode + dimensions | Base64 (for vision models) + extracted text |
-| 📄 **PDF** | `PdfRenderer` → bitmap → OCR per page (≤20 pages) | **Text only** — a 4 MB scan travels as a few KB |
-| 📝 **Text file** | Read as UTF-8 | Text only |
-| 🎵 **Audio/Video** | Duration via `MediaMetadataRetriever` | Metadata only |
+|  **Image** | ML Kit OCR + barcode + dimensions | Base64 (for vision models) + extracted text |
+|  **PDF** | `PdfRenderer` → bitmap → OCR per page (≤20 pages) | **Text only** — a 4 MB scan travels as a few KB |
+|  **Text file** | Read as UTF-8 | Text only |
+|  **Audio/Video** | Duration via `MediaMetadataRetriever` | Metadata only |
 
 **Offline-first by design:** Every `observe*` flow reads from Room. Network writes to Room. Room re-emits. The screen renders with the radio off and updates when the backend answers.
 
-## 🧪 Test Suite
+##  Test Suite
 
 **192 tests across 11 files — all passing.**
 
@@ -296,7 +296,7 @@ pnpm --filter @modelmesh/api build        # Production build
 | `tasks.test.ts` | End-to-end `POST /tasks`, strategy differences, hostile documents |
 | `telemetry-honesty.test.ts` | Savings counted only for subtasks that actually ran |
 
-## 📡 API Reference
+##  API Reference
 
 **Base:** `/api/v1` · **Auth:** `X-API-Key` header on every call
 
@@ -339,7 +339,7 @@ Limit: 5 concurrent connections per key
 Fallback: GET /tasks/:id/trace (polling)
 ```
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -390,46 +390,46 @@ gradle wrapper --gradle-version 8.11.1
 
 > **Note:** The Android app requires the UI track's `res/` and `MainActivity.kt` to compile. The data layer, preprocessing, and DI graph are complete.
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Model_Mesh/
 ├── apps/
-│   ├── api/                        ⚡ Node 20 + Fastify + Socket.io backend
+│   ├── api/                         Node 20 + Fastify + Socket.io backend
 │   │   ├── src/
 │   │   │   ├── core/
-│   │   │   │   ├── intelligence/   🧠 classifier, decomposer, enhancer, profiler
-│   │   │   │   ├── orchestrator/   🔀 DAG, executor, planner, recovery, scheduler
-│   │   │   │   ├── optimizer/      ✂️  context compression & slicing
-│   │   │   │   ├── providers/      🤖 gemini, groq, together, mistral, openrouter, mock
-│   │   │   │   ├── aggregator/     🔗 result synthesis & contradiction detection
-│   │   │   │   ├── verifier/       ✅ confidence-gated verification
-│   │   │   │   ├── cache/          💾 semantic caching layer
-│   │   │   │   ├── telemetry/      📊 calibration & honest reporting
-│   │   │   │   └── pipeline.ts     🔄 15-stage orchestration entry point
-│   │   │   ├── keys/               🔑 multi-key manager + quota-aware rotator
-│   │   │   ├── api/                🌐 routes + auth/rate-limit/safety middleware
-│   │   │   ├── infra/              🗄️  store, persistence, crypto, text, logger
-│   │   │   └── jobs/               ⚙️  BullMQ queue + worker (in-process fallback)
+│   │   │   │   ├── intelligence/    classifier, decomposer, enhancer, profiler
+│   │   │   │   ├── orchestrator/    DAG, executor, planner, recovery, scheduler
+│   │   │   │   ├── optimizer/        context compression & slicing
+│   │   │   │   ├── providers/       gemini, groq, together, mistral, openrouter, mock
+│   │   │   │   ├── aggregator/      result synthesis & contradiction detection
+│   │   │   │   ├── verifier/        confidence-gated verification
+│   │   │   │   ├── cache/           semantic caching layer
+│   │   │   │   ├── telemetry/       calibration & honest reporting
+│   │   │   │   └── pipeline.ts      15-stage orchestration entry point
+│   │   │   ├── keys/                multi-key manager + quota-aware rotator
+│   │   │   ├── api/                 routes + auth/rate-limit/safety middleware
+│   │   │   ├── infra/                store, persistence, crypto, text, logger
+│   │   │   └── jobs/                 BullMQ queue + worker (in-process fallback)
 │   │   ├── prisma/schema.prisma
-│   │   └── tests/                  🧪 11 files, 192 tests
-│   └── android/                    📱 Kotlin + Compose (JVM 17, minSdk 26)
+│   │   └── tests/                   11 files, 192 tests
+│   └── android/                     Kotlin + Compose (JVM 17, minSdk 26)
 │       └── app/src/
 │           ├── domain/             use cases + ports
 │           ├── data/               API client, Room DB, ML Kit preprocessing
 │           └── di/                 Hilt modules
-├── packages/types/                 📦 shared TypeScript contract
-├── scripts/                        🛠️  setup.sh, seed-keys.ts, test-providers.ts
-├── docker-compose.yml              🐳 Postgres 15 + Redis 7 (both optional)
-└── turbo.json                      ⚡ Turborepo monorepo config
+├── packages/types/                  shared TypeScript contract
+├── scripts/                          setup.sh, seed-keys.ts, test-providers.ts
+├── docker-compose.yml               Postgres 15 + Redis 7 (both optional)
+└── turbo.json                       Turborepo monorepo config
 ```
 
-## ⚙️ Configuration
+##  Configuration
 
 All variables have working defaults. Zero configuration needed for demo mode.
 
 <details>
-<summary><b>📋 Full Environment Variable Reference</b></summary>
+<summary><b> Full Environment Variable Reference</b></summary>
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -459,7 +459,7 @@ All variables have working defaults. Zero configuration needed for demo mode.
 
 </details>
 
-## 🤝 Contributing
+##  Contributing
 
 This is a monorepo managed with [Turborepo](https://turbo.build/) and [pnpm workspaces](https://pnpm.io/workspaces).
 
@@ -471,22 +471,20 @@ pnpm run test             # Run all tests
 pnpm run typecheck        # Type-check everything
 ```
 
-## 🏆 Why This Wins
+##  Why This Wins
 
 <table>
 <tr>
 <td width="33%" align="center">
-<h3>🧠</h3>
 <b>Not a wrapper</b><br/>
 A 15-stage pipeline with DAG decomposition, context slicing, and capability routing. This is AI infrastructure, not another API proxy.
 </td>
 <td width="33%" align="center">
-<h3>📱</h3>
 <b>Full stack</b><br/>
 Backend + Android app with on-device ML preprocessing. A 4 MB PDF scan travels as a few KB of text.
 </td>
 <td width="33%" align="center">
-<h3>✅</h3>
+
 <b>Actually tested</b><br/>
 192 passing tests. Types checked. Builds clean. Honest telemetry — partial failures are never hidden.
 </td>
@@ -497,7 +495,7 @@ Backend + Android app with on-device ML preprocessing. A 4 MB PDF scan travels a
 
 <div align="center">
 
-**Built with ❤️ for the iQOO AI Hackathon**
+**Built with  for the iQOO AI Hackathon**
 
 *Neural Forge — because intelligence should sit in the orchestrator, not the prompt.*
 
