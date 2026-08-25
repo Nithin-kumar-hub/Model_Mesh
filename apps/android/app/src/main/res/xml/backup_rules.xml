@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  android:fullBackupContent target (API 26–30 auto-backup).
+
+  The Room database (modelmesh.db, name from Track A's ModelMeshDatabase) is a
+  local cache of tasks whose authoritative rows live on the backend. Restoring it
+  onto another device would surface task ids and results the backend no longer
+  has, so it is excluded from cloud backup. Everything is re-fetched on demand.
+-->
+<full-backup-content>
+    <exclude domain="database" path="modelmesh.db" />
+    <exclude domain="database" path="modelmesh.db-shm" />
+    <exclude domain="database" path="modelmesh.db-wal" />
+    <exclude domain="database" path="modelmesh.db-journal" />
+</full-backup-content>

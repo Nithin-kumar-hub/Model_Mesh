@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Required by the manifest's android:label. -->
+    <string name="app_name">ModelMesh</string>
+
+    <!-- ── Screen titles ─────────────────────────────────────────────── -->
+    <string name="input_title">New task</string>
+    <string name="execution_title">Execution trace</string>
+    <string name="result_title">Result</string>
+
+    <!-- ── Input screen ──────────────────────────────────────────────── -->
+    <string name="input_instruction_label">Your instruction</string>
+    <string name="input_instruction_placeholder">Describe what you want done. This is the only directive channel.</string>
+    <string name="input_material_heading">Attached material — extracted on device</string>
+    <string name="input_material_explainer">Files are treated as untrusted material, kept separate from your instruction. Text is pulled out on the phone before anything is uploaded.</string>
+    <string name="input_add_from_device">Add file</string>
+    <string name="input_add_from_camera">Camera</string>
+    <string name="input_strategy_label">Strategy</string>
+    <string name="input_prefer_local_label">Prefer on-device models</string>
+    <string name="input_prefer_local_hint">A hint only — the backend chooses the model by capability.</string>
+    <string name="input_submit">Run task</string>
+    <string name="input_submitting">Submitting…</string>
+    <string name="input_recent_heading">Recent tasks</string>
+    <string name="input_history_empty">No tasks yet. Describe something above to begin.</string>
+    <string name="input_resume_heading">Unfinished tasks</string>
+    <string name="input_resume_action">Reopen</string>
+    <string name="input_attachment_limit">Up to 10 files, 20 MB each.</string>
+    <string name="input_preprocessing">Extracting on device…</string>
+
+    <!-- ── Camera ────────────────────────────────────────────────────── -->
+    <string name="camera_title">Capture a document</string>
+    <string name="camera_capture">Capture</string>
+    <string name="camera_cancel">Cancel</string>
+    <string name="camera_permission_rationale">Camera access is needed to capture a document or photo. Text is extracted on the device; the image never leaves without your instruction.</string>
+    <string name="camera_permission_grant">Grant camera access</string>
+    <string name="camera_permission_denied">Camera permission was denied. You can still add files from your device.</string>
+
+    <!-- ── Execution trace screen ────────────────────────────────────── -->
+    <string name="execution_pipeline_heading">Pipeline</string>
+    <string name="execution_plan_heading">Plan</string>
+    <string name="execution_context_savings_heading">Context savings</string>
+    <string name="execution_subtasks_heading">Subtasks</string>
+    <string name="execution_replanning_heading">Re-planning</string>
+    <string name="execution_outcome_heading">Outcome</string>
+    <string name="execution_raw_trace_show">Show raw trace</string>
+    <string name="execution_raw_trace_hide">Hide raw trace</string>
+    <string name="execution_view_result">View result</string>
+    <string name="execution_waiting">Waiting for the first trace event…</string>
+    <string name="execution_parallel_batch">Batch %1$d · %2$d in parallel</string>
+    <string name="execution_plan_downgraded">Backend chose a different strategy than requested.</string>
+
+    <!-- ── Result screen ─────────────────────────────────────────────── -->
+    <string name="result_partial_banner">Partial result — some subtasks did not produce an answer.</string>
+    <string name="result_output_heading">Output</string>
+    <string name="result_copy">Copy</string>
+    <string name="result_copied">Copied to clipboard</string>
+    <string name="result_expand">Show full output</string>
+    <string name="result_collapse">Show less</string>
+    <string name="result_confidence_heading">Confidence</string>
+    <string name="result_verification_heading">Verification</string>
+    <string name="result_verification_passed">Verification passed</string>
+    <string name="result_verification_issues">Verification raised issues</string>
+    <string name="result_telemetry_heading">Telemetry</string>
+    <string name="result_plan_heading">Plan summary</string>
+    <string name="result_subtasks_heading">Subtask breakdown</string>
+    <string name="result_feedback_heading">Rate this result</string>
+    <string name="result_feedback_comment_hint">Optional comment (feeds calibration)</string>
+    <string name="result_feedback_submit">Submit feedback</string>
+    <string name="result_feedback_thanks">Thanks — this feeds the calibration loop.</string>
+    <string name="result_view_trace">View execution trace</string>
+    <string name="result_refresh">Refresh</string>
+    <string name="result_loading">Loading result…</string>
+    <string name="result_stale_notice">Showing a cached result. Pull refresh to re-read from the server.</string>
+
+    <!-- ── Errors / actions (mapped from ErrorCode) ──────────────────── -->
+    <string name="error_retry">Retry</string>
+    <string name="error_edit_input">Edit input</string>
+    <string name="error_generic_title">Something went wrong</string>
+    <string name="error_offline">You appear to be offline.</string>
+    <string name="error_timeout">The request timed out.</string>
+    <string name="error_rate_limited">Rate limited — try again shortly.</string>
+    <string name="error_invalid_input">The input was rejected.</string>
+    <string name="error_prompt_injection">Your instruction was flagged as a prompt-injection attempt. Edit it and try again.</string>
+    <string name="error_unsupported_modality">That file type is not supported.</string>
+    <string name="error_file_too_large">That file is too large (max 20 MB).</string>
+    <string name="error_not_found">Task not found.</string>
+    <string name="error_no_providers">No providers are currently available.</string>
+
+    <!-- ── Content descriptions ──────────────────────────────────────── -->
+    <string name="cd_remove_attachment">Remove attachment</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_attachment_thumbnail">Attachment thumbnail</string>
+    <string name="cd_connection_status">Connection status</string>
+</resources>

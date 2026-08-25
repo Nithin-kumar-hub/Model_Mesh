@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Pre-Compose window background; Compose draws the real surface on top.
+         Kept close to the Material 3 light background so there is no flash. -->
+    <color name="window_background">#FBF8FF</color>
+
+    <!-- Adaptive launcher icon background (see mipmap-anydpi-v26/ic_launcher.xml).
+         The ModelMesh brand indigo. -->
+    <color name="ic_launcher_background">#2A2250</color>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Theme.ModelMesh is referenced by both <application> and <activity> in the
+      frozen manifest, so the name must match exactly.
+
+      Parent is an ANDROID platform theme, not Theme.Material3.* /
+      Theme.MaterialComponents.* — the material-components XML library is not on
+      the classpath (HANDOFF §5.5). Material 3 lives entirely in Compose; this
+      XML theme only styles the window before Compose composes.
+    -->
+    <style name="Theme.ModelMesh" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+</resources>

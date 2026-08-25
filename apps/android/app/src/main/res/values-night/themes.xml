@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Dark-mode variant. Same platform parent family (Material, not Material3),
+      using the dark platform theme so system-drawn window chrome matches the
+      Compose dark scheme. Material 3 dark colors are provided in Compose.
+    -->
+    <style name="Theme.ModelMesh" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+</resources>

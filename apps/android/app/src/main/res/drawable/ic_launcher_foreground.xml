@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Launcher icon foreground: a small mesh — a teal hub node routing to three white
+  outer nodes with a connecting ring. Vector-only (no binary assets can be
+  authored, HANDOFF §5), sized in the 108dp adaptive viewport with the motif kept
+  inside the 72dp safe zone so it is not clipped by any mask shape.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Edges (drawn first, under the nodes). -->
+    <path
+        android:pathData="M54,54 L54,24 M54,54 L26,66 M54,54 L82,66 M54,24 L26,66 M54,24 L82,66 M26,66 L82,66"
+        android:strokeColor="#B9B4FF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Outer nodes. -->
+    <path
+        android:pathData="M48.5,24 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0 z M20.5,66 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0 z M76.5,66 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0 z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Hub node (teal accent). -->
+    <path
+        android:pathData="M46,54 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0 z"
+        android:fillColor="#4CDADA" />
+</vector>
