@@ -1,0 +1,45 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NODE_ENV",
+    "PORT",
+    "DATABASE_URL",
+    "REDIS_URL",
+    "API_SECRET",
+    "GEMINI_API_KEYS",
+    "GROQ_API_KEYS",
+    "TOGETHER_API_KEYS",
+    "MISTRAL_API_KEYS",
+    "OPENROUTER_API_KEYS",
+    "ENABLE_SEMANTIC_CACHE",
+    "ENABLE_PARALLEL_EXECUTION",
+    "ENABLE_VERIFICATION",
+    "ENABLE_MOCK_PROVIDER",
+    "MAX_PARALLEL_SUBTASKS",
+    "DEFAULT_STRATEGY",
+    "PERSISTENCE",
+    "CACHE_BACKEND",
+    "KEY_ENCRYPTION_SECRET"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "lint": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

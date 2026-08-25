@@ -1,0 +1,25 @@
+{
+  "name": "modelmesh",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ModelMesh — AI Workload Planner & Orchestrator",
+  "packageManager": "pnpm@11.23.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "prisma": "pnpm --filter @modelmesh/api exec prisma",
+    "seed": "pnpm --filter @modelmesh/api run seed",
+    "test-providers": "pnpm --filter @modelmesh/api run test-providers"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "~5.4.5"
+  }
+}

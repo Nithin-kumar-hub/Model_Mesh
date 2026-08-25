@@ -1,0 +1,11 @@
+packages:
+  - 'apps/api'
+  - 'packages/*'
+
+# pnpm >=10 requires explicit opt-in for dependency build scripts.
+allowBuilds:
+  '@prisma/client': true
+  '@prisma/engines': true
+  prisma: true
+  esbuild: true
+  msgpackr-extract: true
